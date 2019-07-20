@@ -6,6 +6,7 @@
     <div class="container">
       <h1 class="display-3">Add a Page</h1>
       <a href="/admin/pages" class="btn btn-warning btn-sm mb-5">Back to Listing</a>
+      <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
       <form method="post" th:object="${page}" th:action="@{/admin/pages/add}">
         <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
           There are errors in your form submission.
