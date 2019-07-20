@@ -4,7 +4,7 @@
   <body>
     <nav th:replace="/fragments/nav :: nav-admin"></nav>
     <div class="container">
-      <h1 class="display-3">Add a Page</h1>
+      <h1 class="display-3" th:text="'Edit ' + ${page.title}"></h1>
       <a href="/admin/pages" class="btn btn-warning btn-sm mb-5">Back to Listing</a>
       <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
       <form method="post" th:object="${page}" th:action="@{/admin/pages/add}">
@@ -13,19 +13,21 @@
         </div>
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" class="form-control" th:field="*{title}" placeholder="Title" />
+          <input type="text" class="form-control" th:field="*{title}" th:value="${page.title}" placeholder="Title" />
           <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
         </div>
         <div class="form-group">
           <label for="slug">Slug</label>
-          <input type="text" class="form-control" th:field="*{slug}" placeholder="Slug" />
+          <input type="text" class="form-control" th:field="*{slug}" th:value="${page.slug}" placeholder="Slug" />
         </div>
         <div class="form-group">
           <label for="content">Content</label>
-          <textarea rows="10" class="form-control" th:field="*{content}" placeholder="Content"></textarea>
+          <textarea rows="10" class="form-control" th:field="*{content}" th:value="${page.content}" placeholder="Content"></textarea>
           <span class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
         </div>
-        <button class="btn btn-danger mb-5">Add</button>
+        <input type="hidden" th:field="*{id}" th:value="${page.id}" />
+        <input type="hidden" th:field="*{sorting}" th:value="${page.sorting}" />
+        <button class="btn btn-danger mb-5">Edit</button>
       </form>
     </div>
     <footer th:replace="/fragments/footer"></footer>
